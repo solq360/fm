@@ -9,15 +9,18 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<!-- AOP拦截配置 -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
-	<!-- 开启注释配置 -->
-	<context:annotation-config />
-	
-	<!-- 自动包扫描配置 -->
-	<context:component-scan base-package="org.solq.fm">
-	</context:component-scan>
 
-	<import resource="module.xml" />
+	<!-- 配置文件载入配置 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>properties/server.properties</value>
+				<value>properties/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<import resource="module/hibernate.xml" />
 
 </beans>

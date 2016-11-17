@@ -14,19 +14,10 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 	<!-- 开启注释配置 -->
 	<context:annotation-config />
 	
-	<!-- 配置文件载入配置 -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>server.properties</value>
-			</list>
-		</property>
-	</bean>
-	
 	<!-- 自动包扫描配置 -->
 	<context:component-scan base-package="org.solq.fm">
 	</context:component-scan>
 
+	<import resource="module.xml" />
 
 </beans>
