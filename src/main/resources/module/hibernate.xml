@@ -2,12 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- 数据源配置 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
@@ -36,34 +37,53 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="org.solq.fm" />
+		<property name="packagesToScan" value="${hibernate.scanPackage}" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="current_session_context_class">thread</prop>
+				<!-- session 绑定 java thread getCurrentSession 才有值 -->
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			
+
 				<prop key="cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 				<prop key="hibernate.cache.use_second_level_cache">false</prop>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<!-- 不用spring orm 管理session -->
+				<!-- <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop> -->
 
 				<!-- 使用MySQL要加的配置 -->
 				<prop key="connection.autoReconnect">true</prop>
 				<prop key="connection.autoReconnectForPools">true</prop>
 				<prop key="connection.is-connection-validation-required">true</prop>
 				<!-- 初始化SQL文件 <prop key="hibernate.hbm2ddl.import_files">/import.sql</prop> -->
-				
-				              <!-- c3p0 properties -->
-<!--                 <prop key="hibernate.c3p0.min_size">2</prop>
-                <prop key="hibernate.c3p0.max_size">50</prop>
-                <prop key="hibernate.c3p0.maxPoolSize">50</prop>
-                <prop key="hibernate.c3p0.minPoolSize">2</prop>
-                <prop key="hibernate.c3p0.initialPoolSize">2</prop>
-                <prop key="hibernate.c3p0.timeout">300</prop>
-                <prop key="hibernate.c3p0.max_statements">50</prop>    -->
-                
+
+				<!-- c3p0 properties -->
+				<!-- <prop key="hibernate.c3p0.min_size">2</prop> <prop key="hibernate.c3p0.max_size">50</prop> 
+					<prop key="hibernate.c3p0.maxPoolSize">50</prop> <prop key="hibernate.c3p0.minPoolSize">2</prop> 
+					<prop key="hibernate.c3p0.initialPoolSize">2</prop> <prop key="hibernate.c3p0.timeout">300</prop> 
+					<prop key="hibernate.c3p0.max_statements">50</prop> -->
+
 			</props>
 		</property>
 	</bean>
+	
+	
 
+	<!-- spring orm hibernateTemplate -->
+	<!-- <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> -->
 
+	<!-- spring orm transactionManager -->
+	<!-- <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory"></property> </bean> 
+		<tx:annotation-driven transaction-manager="transactionManager" /> <bean id="transinterceptor" 
+		class="org.springframework.transaction.interceptor.TransactionInterceptor"> 
+		<property name="transactionManager" ref="transManager"> </property> <property 
+		name="transactionAttributes"> <props> <prop key="*">PROPAGATION_REQUIRED</prop> 
+		</props> </property> </bean> -->
+	<!-- <bean id="proxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"> 
+		<property name="beanNames"> <list> <value>personDAl</value> </list> </property> 
+		<property name="interceptorNames"> <list> <value>transinterceptor</value> 
+		</list> </property> </bean> -->
 </beans>
