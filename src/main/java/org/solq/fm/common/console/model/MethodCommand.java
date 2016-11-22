@@ -1,4 +1,4 @@
-package org.solq.fm.common.console;
+package org.solq.fm.common.console.model;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.solq.fm.common.console.anno.ConsoleBean;
 import org.solq.fm.common.console.anno.ConsoleCommand;
+import org.solq.fm.common.console.model.Command;
+import org.solq.fm.common.console.model.MethodCommand;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.MethodCallback;

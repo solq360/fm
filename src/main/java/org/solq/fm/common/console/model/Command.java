@@ -1,4 +1,4 @@
-package org.solq.fm.common.console;
+package org.solq.fm.common.console.model;
 
 public interface Command {
 

@@ -1,4 +1,4 @@
-package org.solq.fm.common.db.service;
+package org.solq.test.fm.db;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 
 import org.solq.fm.common.db.model.HCriteria;
 import org.solq.fm.common.db.model.HQuery;
+import org.solq.fm.common.db.service.CacheDbOperation;
 import org.solq.test.fm.db.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
