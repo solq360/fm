@@ -16,9 +16,8 @@ import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
- * JSON 转换相关的工具类 注意,Map的Key只能为简单类型 ,不可采用复杂类型.
- * 
- * @author Frank
+ * JSON 转换相关的工具类 
+ * @author solq
  */
 @SuppressWarnings("unchecked")
 public final class JsonUtils {

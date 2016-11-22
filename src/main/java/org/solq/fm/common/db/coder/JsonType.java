@@ -1,4 +1,4 @@
-package org.solq.fm.common.db;
+package org.solq.fm.common.db.coder;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -20,7 +20,6 @@ import org.solq.fm.common.util.JsonUtils;
  * @author solq
  */
 public class JsonType implements DynamicParameterizedType, UserType {
-    final static public String NAME = "org.solq.fm.common.db.JsonType";
     // 实体类
     private Class<?> entityClass;
     // 字段javaType

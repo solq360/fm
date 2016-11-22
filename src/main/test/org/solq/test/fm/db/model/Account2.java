@@ -1,4 +1,4 @@
-package org.solq.fm.module.account.model;
+package org.solq.test.fm.db.model;
 
 import javax.persistence.Id;
 

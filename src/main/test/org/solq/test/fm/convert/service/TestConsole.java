@@ -1,4 +1,4 @@
-package org.solq.fm.test.convert.service;
+package org.solq.test.fm.convert.service;
 
 import org.solq.fm.common.console.anno.ConsoleBean;
 import org.solq.fm.common.console.anno.ConsoleCommand;

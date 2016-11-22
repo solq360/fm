@@ -1,4 +1,4 @@
-package org.solq.fm.test.convert.service;
+package org.solq.test.fm.convert.service;
 
 import org.solq.fm.common.plug.IPlug;
 import org.springframework.stereotype.Component;
