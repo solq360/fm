@@ -3,15 +3,12 @@ package org.solq.fm.common.db.service;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import javax.annotation.PostConstruct;
 
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
@@ -24,7 +21,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.transform.Transformers;
 import org.solq.fm.common.db.anno.DataSource;
 import org.solq.fm.common.db.coder.AliasToBeanResultTransformer;
 import org.solq.fm.common.db.config.DBConfig;
@@ -33,7 +29,6 @@ import org.solq.fm.common.db.model.HQuery;
 import org.solq.fm.common.db.model.IDbOperation;
 import org.solq.fm.common.db.model.IEntity;
 import org.solq.fm.common.util.ArrayUtils;
-import org.solq.test.fm.db.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -43,49 +38,13 @@ import org.springframework.stereotype.Component;
  * 
  * @author solq
  */
-@Component("hibernateDbOperation")
+@Component(DBConfig.OPERATION_HIBERNATE_DBOPERATION)
 @SuppressWarnings({ "deprecation", "unchecked", "rawtypes" })
 public class HibernateDbOperation implements IDbOperation {
 
     @Qualifier(DBConfig.DATA_SOURCE_SQL_MANAGER)
     @Autowired
     private MultDbSourceManger<SessionFactory> multDbSourceManger;
-
-    @PostConstruct
-    public void test_query() {
-	List<Account> list = query(Account.class, HQuery.of("testxx1", 10, 50));
-	list.forEach((a) -> {
-	    System.out.println("hql : " + a.getId());
-
-	});
-	list = query(Account.class, HQuery.ofSql("select a.id,a.name from Account a", 10, 50));
-	list.forEach((a) -> {
-	    System.out.println("sql : " + a.getId());
-	});
-
-	list = query(Account.class, HQuery.of("testxx2", 1, 50));
-	list.forEach((a) -> {
-	    System.out.println("testxx2 : " + a.getId());
-	});
-
-	Map<String, Object> mapParams = new HashMap<>();
-	mapParams.put("id", 3L);
-	mapParams.put("birth", 1);
-	HCriteria hCriteria = HCriteria.ofOr(mapParams);
-
-	Map<String, Object> nextParams = new HashMap<>();
-	nextParams.put("id", 5L);
-	hCriteria.putNext(HCriteria.ofOr(nextParams));
-
-	forEach(Account.class, hCriteria, (a) -> {
-	    System.out.println(a.getId());
-	});
-
-	// forEach(Account.class, HQuery.ofSql("select a.id,a.name from Account
-	// a", 10, 50), (a) -> {
-	// System.out.println(a.getId());
-	// });
-    }
 
     @Override
     public <T extends IEntity> T find(Class<T> type, Serializable key) {
@@ -143,6 +102,9 @@ public class HibernateDbOperation implements IDbOperation {
 	});
     }
 
+    /***
+     * 注意，从Hibernate 查出来的实例不是相同的，不能回写，只能做参考
+     */
     @Override
     public <T extends IEntity> List<T> query(Class<T> type, HQuery hQuery) {
 	return doAction(type, s -> {
@@ -152,6 +114,9 @@ public class HibernateDbOperation implements IDbOperation {
 
     }
 
+    /***
+     * 注意，从Hibernate 查出来的实例不是相同的，不能回写，只能做参考
+     */
     @Override
     public <T extends IEntity> List<T> query(Class<T> type, HCriteria hCriteria) {
 	return doAction(type, s -> {
@@ -187,6 +152,9 @@ public class HibernateDbOperation implements IDbOperation {
 	});
     }
 
+    /***
+     * 注意，从Hibernate 查出来的实例不是相同的，不能回写，只能做参考
+     */
     @Override
     public <T extends IEntity> void forEach(Class<T> type, HQuery hQuery, Consumer<T> action) {
 	doAction(type, s -> {
@@ -210,6 +178,9 @@ public class HibernateDbOperation implements IDbOperation {
 	});
     }
 
+    /***
+     * 注意，从Hibernate 查出来的实例不是相同的，不能回写，只能做参考
+     */
     @Override
     public <T extends IEntity> void forEach(Class<T> type, HCriteria hCriteria, Consumer<T> action) {
 	doAction(type, s -> {

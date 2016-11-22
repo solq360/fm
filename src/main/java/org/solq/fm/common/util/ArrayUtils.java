@@ -3,7 +3,7 @@ package org.solq.fm.common.util;
 import java.util.Collection;
 import java.util.Map;
 
-public class ArrayUtils {
+public abstract class ArrayUtils {
 
     public static boolean isEmpty(Object[] ar) {
  	return ar == null ||ar.length==0;

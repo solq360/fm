@@ -14,4 +14,6 @@ public interface DBConfig {
     final static public String DATA_SOURCE_1 = "dbSource1";
     final static public String DATA_SOURCE_2 = "dbSource2";
 
+    final static public String OPERATION_CACHEDB_OPERATION = "CacheDbOperation";
+    final static public String OPERATION_HIBERNATE_DBOPERATION = "HibernateDbOperation";
 }

@@ -41,6 +41,7 @@ public class Console {
 	if (logger.isDebugEnabled()) {
 	    logger.debug("控制台初始化完成");
 	}
+
     }
 
     /**
@@ -80,6 +81,7 @@ public class Console {
 	ConsoleRunner runner = new ConsoleRunner(this);
 	Thread thread = new Thread(runner, "控制台输入线程");
 	thread.start();
+	applicationContext.start();
 	if (logger.isInfoEnabled()) {
 	    logger.info("控制台启动");
 	}
