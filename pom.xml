@@ -14,16 +14,19 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javac.target>1.8</javac.target>
+
 		<!-- <spring.version>3.1.2.RELEASE</spring.version> -->
 		<spring.version>4.3.4.RELEASE</spring.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<jackson.version>2.2.3</jackson.version>
 		<aspectjrt.version>1.8.9</aspectjrt.version>
 		<javassist.version>3.12.1.GA</javassist.version>
-
-		<javac.target>1.8</javac.target>
 		<hibernate.version>5.2.4.Final</hibernate.version>
+		<netty.version>4.1.6.Final</netty.version>
 		<!-- <hibernate.version>3.6.10.Final</hibernate.version> -->
+
+	
 
 	</properties>
 
@@ -68,14 +71,14 @@
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-websocket</artifactId>
 			<version>${spring.version}</version>
-		</dependency>
+		</dependency> -->
 		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-context</artifactId> 
 			<version>${spring.version}</version> </dependency> -->
- 
+
 
 		<!-- aop -->
 		<dependency>
@@ -118,8 +121,13 @@
 			<version>9.1-901-1.jdbc4</version>
 		</dependency>
 
+		<!-- netty -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${netty.version}</version>
 
-
+		</dependency>
 		<!-- redis -->
 		<!-- <dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-redis</artifactId> 
 			<version>1.6.0.RELEASE</version> </dependency> <dependency> <groupId>org.apache.commons</groupId> 

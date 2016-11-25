@@ -1,0 +1,5 @@
+SOKCET设计记录
+我认为server端只是负责管理多个clinet，而client才是维护socket底层
+在socket层上加个channel 是负责 socket与socket之间联系
+记录些sokcet信息用个会话层session
+而公开业务上使用直接用session会话层 感觉够了

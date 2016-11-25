@@ -89,6 +89,34 @@ public class HibernateDbOperation implements IDbOperation {
     }
 
     @Override
+    public void save(IEntity... objects) {
+	if (ArrayUtils.isEmpty(objects)) {
+	    return;
+	}
+	Class<? extends IEntity> type = objects[0].getClass();
+	doAction(type, s -> {
+	    for (Object o : objects) {
+		s.save(o);
+	    }
+	    return null;
+	});
+    }
+
+    @Override
+    public void update(IEntity... objects) {
+	if (ArrayUtils.isEmpty(objects)) {
+	    return;
+	}
+	Class<? extends IEntity> type = objects[0].getClass();
+	doAction(type, s -> {
+	    for (Object o : objects) {
+		s.saveOrUpdate(o);
+	    }
+	    return null;
+	});
+    }
+
+    @Override
     public void saveOrUpdate(IEntity... objects) {
 	if (ArrayUtils.isEmpty(objects)) {
 	    return;

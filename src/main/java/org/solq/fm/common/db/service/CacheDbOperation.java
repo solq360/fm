@@ -104,6 +104,35 @@ public class CacheDbOperation implements ICacheDbOperation, IDbOperation, BeanPo
 	IDbOperation proxy = getProxy(type);
 	proxy.saveOrUpdate(objects);
     }
+    @Override
+    public void save(IEntity... objects) {
+	// TODO lock
+	Class<? extends IEntity> type = objects[0].getClass();
+	if (isOpenCache(type)) {
+	    ConcurrentHashMap<Object, Object> cache = getCacheData(type);
+	    for (IEntity obj : objects) {
+		cache.put(obj.getId(), obj);
+	    }
+	}
+
+	IDbOperation proxy = getProxy(type);
+	proxy.save(objects);
+    }
+    
+    @Override
+    public void update(IEntity... objects) {
+	// TODO lock
+	Class<? extends IEntity> type = objects[0].getClass();
+	if (isOpenCache(type)) {
+	    ConcurrentHashMap<Object, Object> cache = getCacheData(type);
+	    for (IEntity obj : objects) {
+		cache.put(obj.getId(), obj);
+	    }
+	}
+
+	IDbOperation proxy = getProxy(type);
+	proxy.update(objects);
+    }
 
     @Override
     public <T extends IEntity> List<T> query(Class<T> type, HQuery hQuery) {

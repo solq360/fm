@@ -12,6 +12,8 @@ public interface IDbOperation {
 
     public void delete(IEntity... objects);
 
+    public void save(IEntity... objects);
+    public void update(IEntity... objects);
     public void saveOrUpdate(IEntity... objects);
 
     public <T extends IEntity> List<T> query(Class<T> type, HQuery hQuery);
@@ -23,4 +25,5 @@ public interface IDbOperation {
     public <T extends IEntity> void forEach(Class<T> type, HCriteria hCriteria, Consumer<T> action);
 
     public int count(Class<? extends IEntity> type, HCriteria hCriteria);
+
 }

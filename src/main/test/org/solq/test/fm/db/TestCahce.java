@@ -19,6 +19,16 @@ public class TestCahce {
     private CacheDbOperation cacheDbOperation;
 
     @PostConstruct
+    public void test_update() {
+	cacheDbOperation.saveOrUpdate(Account.of(1L, "xxxx"));
+	Account a = cacheDbOperation.find(Account.class, 1L);
+	System.out.println("test update =====================");
+	a.setAddr("seresr");
+	cacheDbOperation.saveOrUpdate(a);
+
+    }
+
+    @PostConstruct
     public void test_query() {
 	List<Account> list = cacheDbOperation.query(Account.class, HQuery.of("testxx1", 10, 50));
 	list.forEach((a) -> {
